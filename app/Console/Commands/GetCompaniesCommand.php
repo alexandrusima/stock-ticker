@@ -28,8 +28,8 @@ class GetCompaniesCommand extends Command
      */
     public function handle()
     {
-        $sender = app()->make(SenderInterface::class, [ 'key' => 'companies']);
-        $resp = $sender->get();
+        $sender = app()->make(SenderInterface::class, [ 'key' => 'ticker']);
+        $resp = array_keys($sender->get());
         
 
         var_dump($resp);

@@ -15,5 +15,5 @@ interface SenderInterface
      */
     public function __construct($connection, $client);
 
-    public function get(): ResponseInterface;
+    public function get();
 }

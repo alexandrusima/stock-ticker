@@ -42,12 +42,19 @@ class SenderTest extends TestCase
                    ->disableOriginalConstructor()
                    ->getMock();
 
+        $respMock
+           ->method('getBody')
+           ->willReturn('{}');
+
+        $respMock
+           ->method('getStatusCode')
+           ->willReturn(200);
         $this->client = $this->createMock(Client::class);
 
         $this->client
          ->expects($this->once())
          ->method('request')
-         ->with('GET', $url, [])
+         ->with('GET', $url, ['headers' => []])
         ->will(
             $this->returnCallback(
                 function () use ($respMock) { 
@@ -68,7 +75,7 @@ class SenderTest extends TestCase
         $resp = $this->sender->get();
 
         $this->assertInstanceOf(SenderInterface::class, $this->sender);
-        $this->assertInstanceOf(ResponseInterface::class, $resp);
+        $this->assertIsArray($resp);
     }
 
     /**

@@ -28,8 +28,30 @@ class Sender implements SenderInterface
         $this->client = $client;
     }
 
-    public function get(): ResponseInterface
+    public function get(): array
     {
-        return $this->client->request('GET', $this->connection->getUrl(), $this->connection->getHeaders());
+        /** @var ResponseInterface $resp */
+        $resp = $this->client->request(
+            'GET',
+            $this->connection->getUrl(),
+            [
+                'headers' => $this->connection->getHeaders()
+            ]
+        );
+
+        if ($resp->getStatusCode() !== 200) {
+            throw new \RuntimeException('Something whent wrong ! Status code ' . $resp->getStatusCode());
+        }
+        
+        if (!$resp->getBody()) {
+            return [];
+        }
+
+        try {
+            $data = json_decode($resp->getBody(), true);
+        } catch (\JsonException) {
+            return [];
+        }
+        return $data;
     }
 }
