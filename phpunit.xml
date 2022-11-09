@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         stopOnFailure="false"
 >
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
+            <directory suffix="Test.php">./tests/Models</directory>
         </testsuite>
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
@@ -17,15 +19,38 @@
             <directory suffix=".php">./app</directory>
         </include>
     </coverage>
+    <logging>
+        <testdoxHtml outputFile="out/code-coverage/testdox.html"/>
+    </logging>
     <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
-        <env name="MAIL_MAILER" value="array"/>
-        <env name="QUEUE_CONNECTION" value="sync"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="TELESCOPE_ENABLED" value="false"/>
+        <server name="APP_ENV" value="testing"/>
+        <server name="BCRYPT_ROUNDS" value="4"/>
+        <server name="CACHE_DRIVER" value="array"/>
+        <server name="MAIL_MAILER" value="array"/>
+        <server name="QUEUE_CONNECTION" value="sync"/>
+        <server name="SESSION_DRIVER" value="array"/>
+        <server name="TELESCOPE_ENABLED" value="(false)"/>
+
+        <env name="TESTING_HOST" value="http://app_test_nginxapi_1/api/v1" />
+        <env name="DB_HOST" value="database" />
+        <env name="DB_PORT" value="3306" />
+        <env name="DB_DATABASE" value="cashflow_local_testing" />
+        <env name="DB_USERNAME" value="root" />
+        <env name="DB_PASSWORD" value="app" />
+        <env name="EXCHANGE_API_KEY" value="8IomzOVRBjBq390g7xedfArfTos1o4pc" />
+        <env name="EXCHANGE_ENABLED" value="(false)" />
+
+        <env name="REDIS_CLIENT" value="predis" />
+        <env name="REDIS_HOST" value="cache" />
+        <env name="REDIS_PASSWORD" value="eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81" />
+        <env name="REDIS_PORT" value="6379" />
+        <env name="REDIS_USERNAME" value="default" />
+        <env name="REDIS_CACHE_DB" value="1" />
+        <env name="REDIS_DB" value="0" />
+        <env name="REDIS_CACHE_URL" value="tcp://default:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@cache:6379?database=1" />
+        <env name="REDIS_URL" value="tcp://default:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@cache:6379?database=0" />
+
+        <env name="LIGHTHOUSE_CACHE_ENABLE" value="(false)" />
+
     </php>
 </phpunit>
