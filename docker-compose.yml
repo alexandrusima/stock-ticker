@@ -1,0 +1,66 @@
+version: '3'
+services:
+
+    server:
+        image: 'nginx:1.16.0-alpine'
+        depends_on:
+            - application
+        volumes:
+            - './ci/docker/nginx/:/etc/nginx/conf.d:ro'
+            - './:/var/www/html:rw'
+            - nginx-xdebug:/tmp/xdebug:rw
+        expose:
+            - 9005
+            - 9000
+        ports:
+            - '8083:80'
+        networks:
+            - stock_ticker
+
+    application:
+        depends_on:
+            - st_db
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            target: dev
+            args:
+                - APP_ENV=local
+        networks:
+            - stock_ticker
+        volumes:
+            - .:/var/www/html:rw
+            - nginx-xdebug:/tmp/xdebug:rw
+        expose:
+            - 9000
+            - 9005
+        environment:
+            - XDEBUG_CONFIG=remote_connect_back=0 remote_host=10.254.254.254 remote_port=9000
+            - PHP_IDE_CONFIG=serverName=PHPSTORM
+            - PHP_CS_FIXER_IGNORE_ENV=truemake
+
+    st_db:
+        image: 'library/mariadb:latest'
+        container_name: st_db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: app
+            MYSQL_DATABASE: stock_ticker
+            MYSQL_USER: app
+            MYSQL_PASSWORD: app
+        volumes:
+            - db-data:/var/lib/mysql/data:rw
+        ports:
+            - '33082:3306'
+        networks:
+            - stock_ticker
+
+volumes:
+    db-data: {}
+    nginx-xdebug: {}
+    cache:
+        driver: local
+
+networks:
+    stock_ticker:
+        driver: bridge
