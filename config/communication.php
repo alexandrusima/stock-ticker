@@ -5,11 +5,13 @@ return [
 		'companies' => [
 			'url' => env('COMPANIES_URL'),
 			'headers' => [
-				'Content-Type' => 'application/json'
+				'Content-Type' => 'application/json',
+				'Accept' => 'application/json'
+
 			]
 		],
 		'ticker' => [
-			'url' => env('COMPANIES_URL'),
+			'url' => env('RAPID_API_URL'),
 			'headers' => [
 				'Content-Type' => 'application/json',
 				'X-RapidAPI-Key' => env('RAPID_KEY'),

@@ -1,14 +1,19 @@
 <?php
 
-namespace App\Services\Communcation\Sender;
+namespace App\Services\Communication\Sender;
 
 use App\Services\Communcation\Connection\ConnectionInterface;
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\ClientInterface;
 
 interface SenderInterface
 {
 
-    public function __construct(ConnectionInterface $connection);
+    /**
+     * @param $connection ConnectionInterface
+     * @param $client ClientInterface
+     */
+    public function __construct($connection, $client);
 
-    public function send(string $method, array $postData = [], array $headers = []): ResponseInterface
+    public function get(): ResponseInterface;
 }

@@ -2,17 +2,12 @@
 
 namespace App\Services\Communication\Connection;
 
-final class Connection implements ConnectionInterface
+class Connection implements ConnectionInterface
 {
     private ?string $url = null;
     private array $headers = [];
 
-    public function __construct(?string $url = null)
-    {
-        $this->url = $url;    
-    }
-
-    public function addHeader(string $name, string | int $value): ConnectionInterface
+    public function addHeader(string $name, array | string | int $value): ConnectionInterface
     {
         $this->headers[$name] = $value;
 
@@ -26,5 +21,22 @@ final class Connection implements ConnectionInterface
         }
 
         return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): ConnectionInterface
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;        
     }
 }
