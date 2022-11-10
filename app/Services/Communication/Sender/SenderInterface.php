@@ -2,9 +2,9 @@
 
 namespace App\Services\Communication\Sender;
 
-use App\Services\Communcation\Connection\ConnectionInterface;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\ClientInterface;
+
+use App\Services\Communcation\Connection\ConnectionInterface;
 
 interface SenderInterface
 {
@@ -15,5 +15,5 @@ interface SenderInterface
      */
     public function __construct($connection, $client);
 
-    public function get();
+    public function get(array $queryParams = []): array;
 }

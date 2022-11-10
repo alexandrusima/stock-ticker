@@ -4,5 +4,5 @@ namespace App\Services\Communication\Receivers;
 
 interface ReceiverInterface
 {
-    public function fetch(): array;
+    public function fetch(array $queryParams = []): array;
 }

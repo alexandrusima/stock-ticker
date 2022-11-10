@@ -47,7 +47,7 @@
 
 
         <env name="COMPANIES_URL" value="https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json" />
-        <env name="RAPID_API_URL" value='https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data?symbol=ADES&amp;region=US' />
+        <env name="RAPID_API_URL" value='https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data' />
         <env name="RAPID_KEY" value="84e0f04218msh00e3309df7ebad0p1b7f85jsn5a3a282b9454" />
         <env name="RAPID_HOST" value="yh-finance.p.rapidapi.com" />
 

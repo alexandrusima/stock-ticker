@@ -5,10 +5,11 @@
 @endpush
 
 @section('body')
-    <div class="container">
+    <div class="container container-sm">
         <div class="row">
             <div class="col">
-                &nbsp;
+                @include('partials.form')
+
             </div>
         </div>
         <div class="row">

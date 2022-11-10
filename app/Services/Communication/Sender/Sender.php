@@ -28,15 +28,21 @@ class Sender implements SenderInterface
         $this->client = $client;
     }
 
-    public function get(): array
+    public function get(array $queryParams = []): array
     {
+        $params = [
+            'headers' => $this->connection->getHeaders() ?? []
+        ];
+
+        if (!empty($queryParams)) {
+            $params['query'] = $queryParams;
+        }
+
         /** @var ResponseInterface $resp */
         $resp = $this->client->request(
             'GET',
             $this->connection->getUrl(),
-            [
-                'headers' => $this->connection->getHeaders()
-            ]
+            $params
         );
 
         if ($resp->getStatusCode() !== 200) {

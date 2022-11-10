@@ -23,7 +23,12 @@ class TickerReceiverTest extends TestCase
      */
     public function itWorks()
     {
-        $response = $this->receiver->fetch();
+        $response = $this->receiver->fetch([
+            'symbol' => 'GOOG',
+            'region' => 'US',
+            'startDate' => (new \DateTime('-1 minute'))->getTimestamp(),
+            'endDate' => (new \DateTime('+3 minute'))->getTimestamp()
+        ]);
 
         $this->assertIsArray($response);
         $this->assertNotEmpty($response);
@@ -33,15 +38,15 @@ class TickerReceiverTest extends TestCase
         $testResponse = new TestResponse(new Response($json));
         $testResponse->assertJsonStructure(
             [
-            [
-                'date',
-                'open',
-                'high',
-                'low',
-                'close',
-                'volume',
-                'adjclose',
-            ]
+                [
+                    'date',
+                    'open',
+                    'high',
+                    'low',
+                    'close',
+                    'volume',
+                    'adjclose',
+                ]
             ]
         );
     }

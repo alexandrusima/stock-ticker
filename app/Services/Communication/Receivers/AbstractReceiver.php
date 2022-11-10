@@ -17,7 +17,7 @@ abstract class AbstractReceiver implements ReceiverInterface
      */
     protected $mapper;
 
-    
+
     /**
      * @param SenderInterface $sender
      * @param MappingInterface $mapper
@@ -28,15 +28,15 @@ abstract class AbstractReceiver implements ReceiverInterface
         $this->mapper = $mapper;
     }
 
-    public function fetch(): array
+    public function fetch(array $queryParams = []): array
     {
         try {
-            $resp = $this->sender->get();
+            $resp = $this->sender->get($queryParams);
             $results = $this->normalizeResult($resp);
         } catch (\Throwable) {
             return [];
         }
-        
+
         return $results;
     }
 
