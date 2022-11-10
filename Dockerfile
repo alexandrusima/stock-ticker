@@ -38,7 +38,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-FROM build as dev
+FROM base as dev
 
 COPY composer.json composer.lock ./
 # Php related stuff.
