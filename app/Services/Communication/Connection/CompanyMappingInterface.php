@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Services\Communication\Constants;
+namespace App\Services\Communication\Mapping;
 
-interface CompanyMappingInterface
+interface CompanyMappingInterface extends MappingInterface
 {
     public const NAME_FIELD = 'Company Name';
     public const STATUS_FIELD = 'Financial Status';

@@ -31,26 +31,25 @@
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="(false)"/>
 
-        <env name="TESTING_HOST" value="http://app_test_nginxapi_1/api/v1" />
+
         <env name="DB_HOST" value="database" />
         <env name="DB_PORT" value="3306" />
         <env name="DB_DATABASE" value="cashflow_local_testing" />
         <env name="DB_USERNAME" value="root" />
         <env name="DB_PASSWORD" value="app" />
-        <env name="EXCHANGE_API_KEY" value="8IomzOVRBjBq390g7xedfArfTos1o4pc" />
-        <env name="EXCHANGE_ENABLED" value="(false)" />
 
         <env name="REDIS_CLIENT" value="predis" />
         <env name="REDIS_HOST" value="cache" />
-        <env name="REDIS_PASSWORD" value="eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81" />
+        <env name="REDIS_PASSWORD" value="" />
         <env name="REDIS_PORT" value="6379" />
-        <env name="REDIS_USERNAME" value="default" />
-        <env name="REDIS_CACHE_DB" value="1" />
-        <env name="REDIS_DB" value="0" />
-        <env name="REDIS_CACHE_URL" value="tcp://default:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@cache:6379?database=1" />
-        <env name="REDIS_URL" value="tcp://default:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@cache:6379?database=0" />
+        <env name="REDIS_USERNAME" value="" />
+        <env name="REDIS_CACHE_DB" value="" />
 
-        <env name="LIGHTHOUSE_CACHE_ENABLE" value="(false)" />
+
+        <env name="COMPANIES_URL" value="https://pkgstore.datahub.io/core/nasdaq-listings/nasdaq-listed_json/data/a5bc7580d6176d60ac0b2142ca8d7df6/nasdaq-listed_json.json" />
+        <env name="RAPID_API_URL" value='https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data?symbol=ADES&amp;region=US' />
+        <env name="RAPID_KEY" value="84e0f04218msh00e3309df7ebad0p1b7f85jsn5a3a282b9454" />
+        <env name="RAPID_HOST" value="yh-finance.p.rapidapi.com" />
 
     </php>
 </phpunit>

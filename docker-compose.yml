@@ -18,8 +18,8 @@ services:
             - stock_ticker
 
     application:
-        depends_on:
-            - st_db
+      #        depends_on:
+      #     - st_db
         build:
             context: .
             dockerfile: ./Dockerfile

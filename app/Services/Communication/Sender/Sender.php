@@ -2,16 +2,16 @@
 
 namespace App\Services\Communication\Sender;
 
-use App\Services\Communcation\Connection\ConnectionInterface;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
+use App\Services\Communcation\Connection\ConnectionInterface;
 
 class Sender implements SenderInterface
 {
     /**
      * @var ConnectionInterface
      */
-    private $connection = null; 
+    private $connection = null;
 
     /**
      * @var ClientInterface
@@ -42,7 +42,7 @@ class Sender implements SenderInterface
         if ($resp->getStatusCode() !== 200) {
             throw new \RuntimeException('Something whent wrong ! Status code ' . $resp->getStatusCode());
         }
-        
+
         if (!$resp->getBody()) {
             return [];
         }
