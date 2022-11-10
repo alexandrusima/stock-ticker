@@ -2,6 +2,7 @@
 
 return [
 	'connections' => [
+		'default' => 'companies',
 		'companies' => [
 			'url' => env('COMPANIES_URL'),
 			'headers' => [
