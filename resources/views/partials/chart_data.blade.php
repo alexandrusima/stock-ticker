@@ -1,6 +1,6 @@
 <script type="text/javascript">
     window.chart_data = {
-        title: "{{ $company->symbol }} - {{ $company->name }}",
+        title: "{{ $symbol }} - {{ $company->name ?? 'not-set' }}",
         data: @json($ticker, JSON_PRETTY_PRINT)
     };
 </script>

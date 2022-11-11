@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Mail\TickerMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use App\Services\Communication\Receivers\TickerReceiverInterface;
 
@@ -57,15 +59,39 @@ class CompanyController extends Controller
         if ($request->isMethod('POST')) {
             $validated = $request->validate($this->rules);
             $tickerData = $this->filterData($tickerData, $validated['start_date'], $validated['end_date']);
+
+            if (array_key_exists('email', $validated) && !empty($validated['email'])) {
+                $email = $validated['email'];
+
+
+                /*     Mail::send('emails.tiker', [
+                    ...$validated,
+                    'symbol' => $symbol,
+                    'ticker' =>
+                    $tickerData
+                ], function ($message) use ($email, $company) {
+                    $message->to($email, 'Test test')->subject('Login Details');
+                });
+ */
+                Mail::to($email)->send(new TickerMail(
+                    $email,
+                    $symbol,
+                    $company,
+                    $tickerData,
+                    $validated['start_date'],
+                    $validated['end_date']
+                ));
+            }
         }
 
         return View::make(
             'welcome',
             [
+                'symbol' => $symbol,
                 'company' => $company,
                 'ticker' => $tickerData,
                 'request' => $request,
-                'validated' => $validated ?: [],
+                'validated' => $validated ?? [],
             ],
         );
     }

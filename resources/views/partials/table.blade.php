@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <h1>{{ $company->name }}</h1><span class="sm">{{ $company->symbol }}</span>
+    <h1>{{ $symbol }}</h1><span class="xs">{{ $company->name ?? '' }}</span>
 
     <table class="table table-striped table-sm align-middle" style="font-size:14px">
         <thead>
