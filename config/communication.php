@@ -26,11 +26,12 @@ return [
             'Symbol' => 'symbol'
         ],
         'ticker' => [
+
             'date' => 'date',
-            'open' => 'open',
-            'high' => 'high',
-            'low' => 'low',
-            'close' => 'close',
+            'open' => 'o',
+            'high' => 'h',
+            'low' => 'l',
+            'close' => 'c',
             'volume' => 'volume',
             'adjclose' => 'adjclose'
         ]

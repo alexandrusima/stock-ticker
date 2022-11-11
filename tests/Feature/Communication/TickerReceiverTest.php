@@ -23,12 +23,14 @@ class TickerReceiverTest extends TestCase
      */
     public function itWorks()
     {
-        $response = $this->receiver->fetch([
+        $response = $this->receiver->fetch(
+            [
             'symbol' => 'GOOG',
             'region' => 'US',
             'startDate' => (new \DateTime('-1 minute'))->getTimestamp(),
             'endDate' => (new \DateTime('+3 minute'))->getTimestamp()
-        ]);
+            ]
+        );
 
         $this->assertIsArray($response);
         $this->assertNotEmpty($response);

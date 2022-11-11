@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\CompanyController@index');
+Route::get('/', 'App\Http\Controllers\CompanyController@index')->name('home');
+Route::post('/', 'App\Http\Controllers\CompanyController@index')->name('post');

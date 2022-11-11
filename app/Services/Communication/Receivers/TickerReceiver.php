@@ -24,11 +24,21 @@ class TickerReceiver extends AbstractReceiver implements TickerReceiverInterface
             throw new \InvalidArgumentException('Empty price list');
         }
 
+        $prices = $resp['prices'];
         $items = [];
-        foreach ($resp as $company) {
+        foreach ($prices as $company) {
             try {
-                $items[] = $this->mapper->map($company);
-            } catch (\Throwable) {
+                $item = $this->mapper->map($company) ?? [];
+
+                // @todo figure out the place for this.
+                $date = new \DateTime('now');
+                $date->setTimestamp((float) $item['date']);
+
+                $item['x'] = (float) $date->format('U');
+                $item['date'] = $date->format(\DateTime::ISO8601);
+
+                $items[] = $item;
+            } catch (\Throwable $e) {
                 continue;
             }
         }

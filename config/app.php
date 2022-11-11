@@ -194,7 +194,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
         App\Providers\CommunicationServiceProvider::class
+
     ],
 
     /*
@@ -208,6 +210,8 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([])->toArray(),
+    'aliases' => Facade::defaultAliases()->merge([
+        'Form' => 'Collective\Html\FormFacade'
+    ])->toArray(),
 
 ];
