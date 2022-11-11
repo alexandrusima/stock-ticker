@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Test Documentation</title>
+        <style>
+            body {
+                text-rendering: optimizeLegibility;
+                font-variant-ligatures: common-ligatures;
+                font-kerning: normal;
+                margin-left: 2em;
+                background-color: #ffffff;
+                color: #000000;
+            }
+
+            body > ul > li {
+                font-family: Source Serif Pro, PT Sans, Trebuchet MS, Helvetica, Arial;
+                font-size: 2em;
+            }
+
+            h2 {
+                font-family: Tahoma, Helvetica, Arial;
+                font-size: 3em;
+            }
+
+            ul {
+                list-style: none;
+                margin-bottom: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="Tests\Feature\Communcation\CompaniesReceiverTest">Companies Receiver (Tests\Feature\Communcation\CompaniesReceiver)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Getting results from CompanyReceiver  app container works.</li>
+        </ul>
+        <h2 id="Tests\Feature\Communcation\TickerReceiverTest">Ticker Receiver (Tests\Feature\Communcation\TickerReceiver)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Getting Results from app container works.</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Communication\Connection\ConnectionTest">Connection (Tests\Unit\Services\Communication\Connection\Connection)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Connection::class implements ConnectionInterface .</li>
+            <li style="color: #555753;">✓ not passing any params retuns as expected</li>
+            <li style="color: #555753;">✓ configured retuns as expected</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Communication\Mapping\MapperTest">Mapper (Tests\Unit\Services\Communication\Mapping\Mapper)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Mapper::class implements Mapper .</li>
+            <li style="color: #555753;">✓ Sending empty config array thorws \InvalidArgumentException.</li>
+            <li style="color: #555753;">✓ Configured works as expected.</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Communication\Receivers\AbstractReceiverTest">Abstract Receiver (Tests\Unit\Services\Communication\Receivers\AbstractReceiver)</h2>
+        <ul>
+            <li style="color: #555753;">✓ AbstractReceiver::class implements ReceiverInterface .</li>
+            <li style="color: #555753;">✓ If sender throws Exception, should get empty result.</li>
+            <li style="color: #555753;">✓ If normalizeResult throws exception we should receive empty result.</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Communication\Receivers\CompaniesReceiverTest">Companies Receiver (Tests\Unit\Services\Communication\Receivers\CompaniesReceiver)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Implements AbstractReceiver::class and ReceiverInterface .</li>
+            <li style="color: #555753;">✓ If mapper throws exception we get empty result.</li>
+        </ul>
+        <h2 id="Tests\Unit\Services\Communication\Sender\SenderTest">Sender (Tests\Unit\Services\Communication\Sender\Sender)</h2>
+        <ul>
+            <li style="color: #555753;">✓ Using Sender::get() calls underlying guzzle client.</li>
+            <li style="color: #555753;">✓ If guzzle throws exception Sender::get() throws exception.</li>
+        </ul>
+    </body>
+</html>
