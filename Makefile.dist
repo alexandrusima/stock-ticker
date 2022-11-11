@@ -1,0 +1,75 @@
+DOCKER_COMPOSE = docker-compose -p stock-ticker
+TOOLS = $(DOCKER_COMPOSE) run --rm application
+PHP = $(TOOLS) php
+CONSOLE = $(TOOLS) php artisan
+.PHONY: $(filter-out vendor, $(MAKECMDGOALS))
+.DEFAULT_GOAL := help
+
+help: ## show help
+	@echo -e -n "\033[33mUsage:\033[0m\n  make [target] [arg=\"val\"...]\n\n\033[33mTargets:\033[0m"
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[32m%-15s\033[0m %s\n", $$1, $$2}'
+
+prepare-test-db: ## prepare test db
+	@$(DOCKER_COMPOSE) exec st_db mysql -uroot -papp -e "drop database if exists stock_ticker;"
+	@$(DOCKER_COMPOSE) exec st_db mysql -uroot -papp -e "create database stock_ticker;"
+	@$(CONSOLE) migrate:fresh --env=production --database=mysql --seed --force
+
+phpcs: ## run phpcs
+	@$(PHP) -dmemory_limit=-1 vendor/bin/phpcs --no-cache -s --standard=phpcs.xml app/ bootstrap/app.php   tests/
+
+phpcbf: ## run phpcbf
+	@$(PHP) -dmemory_limit=-1 vendor/bin/phpcbf -p --standard=phpcs.xml app/ bootstrap/app.php  tests/
+
+phpmetrics: ## run php metrics
+	@$(PHP) -dmemory_limit=-1 vendor/bin/phpmetrics --report-html=out/php-metrics app/ --junit=out/junit.xml
+
+phpmd: ## run php md
+	@$(TOOLS) rm -rfd ./out/php-md/
+	@$(PHP) -dmemory_limit=-1 vendor/bin/phpmd app html ./phpmd.xml --reportfile out/php-md/index.html
+
+test-all: # run unit test-sall
+	@$(PHP) -dxdebug.mode=coverage -dpcov.enabled=0 -dpcov.directory=app -dpcov.exclude="~vendor~" -dmemory_limit=-1 vendor/bin/phpunit -c phpunit.xml  tests/ --testdox --testdox-html ./out/tests.html
+
+run-test: ## run specific test --test --filter
+	@$(PHP) -dxdebug.mode=coverage -dmemory_limit=-1 vendor/bin/phpunit --verbose -c phpunit.xml "${test}" --filter "${filter}" --log-junit=out/junit.xml --testdox --testdox-html ./out/tests.html
+
+cs: phpcbf phpcs ## run coding standards
+	@echo 'Done .'
+
+
+ps: ## lists running containers
+	@$(DOCKER_COMPOSE) ps
+
+up: ## start containers
+	@$(DOCKER_COMPOSE) up -d
+
+down: ## stop containers
+	@$(DOCKER_COMPOSE) down --remove-orphans
+
+build: ## build containers
+	@$(DOCKER_COMPOSE) build --force-rm
+
+server-sh: ## connection to server sh
+	@$(DOCKER_COMPOSE) exec server sh -l
+
+sh: ## connect to api container
+	@$(DOCKER_COMPOSE) exec application /bin/bash -l
+
+db-sh: ## connect to database container
+	@$(DOCKER_COMPOSE) exec st_db mysql -uroot -papp stock_ticker
+
+logs: ## see logs
+	@$(DOCKER_COMPOSE) logs -f
+
+restart: ## restart container
+	@$(DOCKER_COMPOSE) restart ${container}
+
+cnet: ## create network
+	docker network create stock_ticker --driver="bridge"
+
+clear-cache: ## remove cache
+	@echo "Resetting opcache;"
+	@$(PHP) -r "opcache_reset();"
+	@echo "Removing optimize"
+	@$(CONSOLE) optimize:clear
+    @$(CONSOLE) view:clear
