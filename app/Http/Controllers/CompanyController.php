@@ -62,17 +62,8 @@ class CompanyController extends Controller
 
             if (array_key_exists('email', $validated) && !empty($validated['email'])) {
                 $email = $validated['email'];
-
-
-                /*     Mail::send('emails.tiker', [
-                    ...$validated,
-                    'symbol' => $symbol,
-                    'ticker' =>
-                    $tickerData
-                ], function ($message) use ($email, $company) {
-                    $message->to($email, 'Test test')->subject('Login Details');
-                });
- */
+                // @TODO fix conneciton issue with gmail.
+                /*
                 Mail::to($email)->send(new TickerMail(
                     $email,
                     $symbol,
@@ -81,6 +72,7 @@ class CompanyController extends Controller
                     $validated['start_date'],
                     $validated['end_date']
                 ));
+                */
             }
         }
 
