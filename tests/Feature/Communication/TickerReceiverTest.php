@@ -25,10 +25,10 @@ class TickerReceiverTest extends TestCase
     {
         $response = $this->receiver->fetch(
             [
-            'symbol' => 'GOOG',
-            'region' => 'US',
-            'startDate' => (new \DateTime('-1 minute'))->getTimestamp(),
-            'endDate' => (new \DateTime('+3 minute'))->getTimestamp()
+                'symbol' => 'GOOG',
+                'region' => 'US',
+                'startDate' => (new \DateTime('-1 minute'))->getTimestamp(),
+                'endDate' => (new \DateTime('+3 minute'))->getTimestamp()
             ]
         );
 
@@ -42,10 +42,10 @@ class TickerReceiverTest extends TestCase
             [
                 [
                     'date',
-                    'open',
-                    'high',
-                    'low',
-                    'close',
+                    'o',
+                    'h',
+                    'l',
+                    'c',
                     'volume',
                     'adjclose',
                 ]

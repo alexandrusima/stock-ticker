@@ -49,10 +49,12 @@ class TickerMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: strtr('[{symbol}] Ticker Mail {companyName}', [
+            subject: strtr(
+                '[{symbol}] Ticker Mail {companyName}', [
                 '{symbol}' => $this->symbol,
                 '{companyName}' => $this->company->name ?? '',
-            ])
+                ]
+            )
         );
     }
 
@@ -77,10 +79,14 @@ class TickerMail extends Mailable
 
     public function build()
     {
-        $this->to($this->email)->subject(strtr('[{symbol}] Ticker Mail {companyName}', [
-            '{symbol}' => $this->symbol,
-            '{companyName}' => $this->company->name ?? '',
-        ]));
+        $this->to($this->email)->subject(
+            strtr(
+                '[{symbol}] Ticker Mail {companyName}', [
+                '{symbol}' => $this->symbol,
+                '{companyName}' => $this->company->name ?? '',
+                ]
+            )
+        );
 
         return $this;
     }
